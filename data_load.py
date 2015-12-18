@@ -13,7 +13,7 @@ import os
 class GetUsers:
 	"""Get username list based on search keyword."""
 	
-	def __init__(self, search_keyword):		
+	def __init__(self, search_keyword):
 		self.search_keyword = search_keyword
 		self.sess = dryscrape.Session(base_url='https://about.me')
 	
@@ -42,16 +42,16 @@ class GetUsers:
 	def get_raw_html(self):
 		"""Load up the entire page contents and return HTML."""
 		self.sess.visit('/search')
-		time.sleep(2.5)
+		time.sleep(settings.INPUT_SEARCH)
 		print('Searching for %s on about.me...' % self.search_keyword)
 		search_field = self.sess.at_xpath("//input[@class='input search-main-field']")
-		time.sleep(2.5)
+		time.sleep(settings.INPUT_SEARCH)
 		search_field.set(self.search_keyword)
-		time.sleep(2.5)
+		time.sleep(settings.INPUT_SEARCH)
 		search_click = self.sess.at_xpath("//button[@class='button submitbutton glyph-search glyph-center']")
-		time.sleep(2.5)
+		time.sleep(settings.INPUT_SEARCH)
 		search_click.click()
-		time.sleep(5)
+		time.sleep(settings.CLICK_SEARCH)
 		print('Loading page for keyword %s (this may take a few minutes)...' % self.search_keyword)
 		page_load_status = False
 		error_tries = 0
@@ -69,7 +69,7 @@ class GetUsers:
 			except (AttributeError, TypeError):
 				print('Connection Error! Retrying in 3 seconds...')
 				error_tries += 1
-				time.sleep(3)
+				time.sleep(settings.RETRY_SLEEP)
 		if page_load_status:
 			return raw_html
 		else:
