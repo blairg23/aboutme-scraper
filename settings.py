@@ -83,7 +83,7 @@ TO_SCRAPE = {
 #MySQL Settings
 MYSQL_HOST = 'localhost'
 MYSQL_USER = 'root'
-MYSQL_PWD = 'datsuaron1852'
+MYSQL_PWD = 'password'
 MYSQL_DB_NAME = 'aboutmedata'
 MYSQL_PORT = ''
 
