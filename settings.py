@@ -4,6 +4,11 @@ SCROLL_SPEED = 0.01
 #Number of times to try loading page before connection error
 CONN_ERROR_TRIES = 5
 
+#Sleep settings
+INPUT_SEARCH = 2.5
+CLICK_SEARCH = 5
+RETRY_SLEEP = 3
+
 #Set image load options
 IMG_LOAD = False
 
@@ -77,8 +82,8 @@ TO_SCRAPE = {
 
 #MySQL Settings
 MYSQL_HOST = 'localhost'
-MYSQL_USER = 'aboutme'
-MYSQL_PWD = 'aboutme_admin'
+MYSQL_USER = 'root'
+MYSQL_PWD = 'datsuaron1852'
 MYSQL_DB_NAME = 'aboutmedata'
 MYSQL_PORT = ''
 
