@@ -95,7 +95,7 @@ def populate_user(cursor, user):
 	user = user_re.group(0)
 	cursor.execute(sql_queries['i_base'].format('user', user))
 	for key, value in tables.iteritems():
-		if key == 'user' or key == 'bio_text':
+		if key == 'user' or key == 'bio_text' or key == '\n':
 			pass
 		else:
 			for x in f[key]:
