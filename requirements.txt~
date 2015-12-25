@@ -1,7 +1,6 @@
 beautifulsoup4==4.4.1
 dryscrape==1.0
 lxml==3.5.0
-MySQL-python==1.2.5
 numpy==1.10.2
 pandas==0.17.1
 python-dateutil==2.4.2

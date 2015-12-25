@@ -39,7 +39,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/Neophile/Dropbox/Projects/Work/intelligentechnologies/src/intelligence-assessment/aboutmeScraper/venv"
+VIRTUAL_ENV="/home/vaporape/Desktop/aboutme-scraper/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
