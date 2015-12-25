@@ -100,6 +100,8 @@ def populate_user(cursor, user):
 			pass
 		else:
 			for x in f[key]:
+				if x == '\n':
+					pass
 				x = x.replace("'", "\\'")
 				print(sql_queries['i_base'].format(tables[key][0], x))
 				cursor.execute(sql_queries['i_base'].format(tables[key][0], x))
