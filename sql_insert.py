@@ -89,13 +89,14 @@ def create_tables(cursor):
 				except:
 					pass
 
+key_errors = ['user', 'bio_text', '\n']
 def populate_user(cursor, user):
 	f = pickle.load(open('%s%s' % (settings.USER_DATA_DIR, user), 'r'))
 	user_re = re.search('[\w.]+[^.p]', user)
 	user = user_re.group(0)
 	cursor.execute(sql_queries['i_base'].format('user', user))
 	for key, value in tables.iteritems():
-		if key == 'user' or key == 'bio_text' or key == '\n':
+		if key in key_errors:
 			pass
 		else:
 			for x in f[key]:
