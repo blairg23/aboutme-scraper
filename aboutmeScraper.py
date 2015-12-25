@@ -83,7 +83,7 @@ class ScrapeSession:
 				if userdata.old == None:
 					pass
 				else:
-					pickle.dump(userdata.user_data, open("%s%s.p" % (settings.USER_DATA_DIR, user), "w"))
+					pickle.dump(userdata.user_data, open("%s%s.p" % (settings.USER_DATA_DIR, user), "wb"))
 					completed.append(user)
 					with open('%s%s' % (settings.COMPLETED_PATH, settings.COMPLETED_USER_LIST), 'a') as f:
 						f.write(user + '\n')
