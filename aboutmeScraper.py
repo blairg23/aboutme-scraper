@@ -6,7 +6,6 @@ import pickle
 import os
 import sys
 import pandas
-from datetime import datetime
 
 class ScrapeSession:
 	"""Create a scrape session."""
