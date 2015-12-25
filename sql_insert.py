@@ -91,7 +91,7 @@ def create_tables(cursor):
 
 key_errors = ['user', 'bio_text', '\n']
 def populate_user(cursor, user):
-	f = pickle.load(open('%s%s' % (settings.USER_DATA_DIR, user), 'r'))
+	f = pickle.load(open('%s%s' % (settings.USER_DATA_DIR, user), 'rb'))
 	user_re = re.search('[\w.]+[^.p]', user)
 	user = user_re.group(0)
 	cursor.execute(sql_queries['i_base'].format('user', user))
