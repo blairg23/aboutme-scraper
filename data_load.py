@@ -14,6 +14,7 @@ class GetUsers:
 	"""Get username list based on search keyword."""
 	
 	def __init__(self, search_keyword):
+		dryscrape.start_xvfb()
 		self.search_keyword = search_keyword
 		self.sess = dryscrape.Session(base_url='https://about.me')
 	
