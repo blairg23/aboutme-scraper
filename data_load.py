@@ -10,6 +10,10 @@ import sys
 import re
 import os
 
+def kill_webkit_server():
+	os.system('killall -9 webkit_server')
+	os.system('killall -9 Xvfb')
+
 class GetUsers:
 	"""Get username list based on search keyword."""
 	
@@ -26,9 +30,14 @@ class GetUsers:
 		# Get usernames
 		self.extract_usernames()
 	
-	def scroll_down(self):
+	def scroll_down(self, st):
 		"""Scroll to bottom of page to load data."""
-		self.sess.exec_script('window.scrollTo(0,document.body.scrollHeight);')
+		print('Scrolling down... %s results loaded.' % str(st * 65))
+		try:
+			self.sess.exec_script('window.scrollTo(0,document.body.scrollHeight);')
+			return True
+		except:
+			return False
 	
 	def check_reach_end(self):
 		"""Check to see if there is no more data to load
@@ -56,18 +65,28 @@ class GetUsers:
 		print('Loading page for keyword %s (this may take a few minutes)...' % self.search_keyword)
 		page_load_status = False
 		error_tries = 0
+		scroll_times = 0
 		while not page_load_status:
 			if error_tries > settings.CONN_ERROR_TRIES:
+				if scroll_times > 0:
+					with open("%s%s" % (settings.SEARCH_LIST_DIR, 'incomplete.txt'), 'a') as f:
+						f.write(self.search_keyword)
 				break
-			self.scroll_down()
+			scroll = self.scroll_down(scroll_times)
+			if scroll == True:
+				scroll_times += 1
 			time.sleep(settings.SCROLL_SPEED)
+			try:
+				raw_html = self.sess.body().encode('utf8')
+			except:
+				pass
 			try:
 				page_loaded = self.check_reach_end()
 				if page_loaded:
 					page_load_status = True
 					raw_html = self.sess.body().encode('utf8')
 					print('Extracted raw html for keyword %s.' % self.search_keyword)
-			except (AttributeError, TypeError):
+			except:
 				print('Connection Error! Retrying in 3 seconds...')
 				error_tries += 1
 				time.sleep(settings.RETRY_SLEEP)
@@ -75,7 +94,10 @@ class GetUsers:
 			return raw_html
 		else:
 			print('Please check your connection.')
-			return False
+			if scroll_times > 0:
+				return raw_html
+			else:
+				return False
 
 	def extract_usernames(self):
 		"""Extract usernames for search keyword, store in temp storage."""
@@ -116,6 +138,7 @@ class ScrapeUserData:
 	"""Scrape data from username url."""
 	
 	def __init__(self, username):
+		dryscrape.start_xvfb()
 		self.username = username
 		self.sess = dryscrape.Session(base_url='https://about.me/')
 		self.user_data = {
@@ -1074,5 +1097,3 @@ class ScrapeUserData:
 		if settings.TO_SCRAPE['goodreads']:
 			self.get_goodreads()
 		
-def kill_webkit_server():
-	os.system('killall -9 webkit_server')
