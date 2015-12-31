@@ -6,11 +6,13 @@ import pickle
 import os
 import sys
 import pandas
+import dryscrape
 
 class ScrapeSession:
 	"""Create a scrape session."""
 	
 	def __init__(self):
+		dryscrape.start_xvfb()
 		self.clear_memory = False
 		self.current_term = None
 		if '-cm' in sys.argv:
@@ -150,7 +152,10 @@ class ScrapeSession:
 				
 					
 			
-	
-a = ScrapeSession()
-a.search_list_scrape()
+try:	
+	a = ScrapeSession()
+	a.search_list_scrape()
+except:
+	data_load.kill_webkit_server()
+	os.execv(sys.executable, [sys.executable] + [os.path.abspath(__file__)])
 
