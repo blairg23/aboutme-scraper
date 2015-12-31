@@ -1,5 +1,5 @@
 #Set scroll down speed to get next set of data
-SCROLL_SPEED = 0.01
+SCROLL_SPEED = 0.25
 
 #Number of times to try loading page before connection error
 CONN_ERROR_TRIES = 5
@@ -16,7 +16,7 @@ IMG_LOAD = False
 #Applicable only if LIST_OR_NOT is True
 SEARCH_LIST_DIR = 'search_lists/to_scrape/'
 SEARCH_FILES = (
-	'names.txt',
+	'common_names.csv',
 )
 
 #Name and filepath of list of users and search terms already scraped
@@ -32,7 +32,7 @@ USER_LIST_DIR = 'user_list/'
 USER_LIST_LOG = 'log.txt'
 
 #Clear memory
-CLEAR_MEMORY = 35 #Suggested 35 per 8 gigs of ram (eg. 35 at 8gigs, 70 at 16gigs)
+CLEAR_MEMORY = 5 #Suggested 35 per 8 gigs of ram (eg. 35 at 8gigs, 70 at 16gigs)
 
 #Fields to Scrape
 TO_SCRAPE = {
@@ -86,4 +86,3 @@ MYSQL_USER = 'aboutme'
 MYSQL_PWD = 'aboutme_admin'
 MYSQL_DB_NAME = 'aboutmedata'
 MYSQL_PORT = ''
-
