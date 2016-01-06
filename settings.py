@@ -26,6 +26,7 @@ COMPLETED_SEARCH_TERMS = 'search_terms/comp_search_terms.txt'
 
 #File for pickle files stored for users already scraped
 USER_DATA_DIR = 'user_data/'
+USER_DATA_POPULATED = 'inserted_users.txt'
 
 #Userlist directory and log
 USER_LIST_DIR = 'user_list/'
