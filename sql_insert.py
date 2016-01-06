@@ -92,26 +92,40 @@ def create_tables(cursor):
 key_errors = ['user', 'bio_text', '\n']
 def populate_user(cursor, user):
 	f = pickle.load(open('%s%s' % (settings.USER_DATA_DIR, user), 'rb'))
-	user_re = re.search('[\w.]+[^.p]', user)
+	user_re = re.search('.+[^.p]', user)
 	user = user_re.group(0)
 	cursor.execute(sql_queries['i_base'].format('user', user))
 	for key, value in tables.iteritems():
-		if key in key_errors:
+		if key == 'user' or key == 'bio_text' or key == '\n':
 			pass
 		else:
 			for x in f[key]:
-				if x == '\n':
-					pass
 				x = x.replace("'", "\\'")
 				print(sql_queries['i_base'].format(tables[key][0], x))
 				cursor.execute(sql_queries['i_base'].format(tables[key][0], x))
 				print(sql_queries['i_link'].format(tables[key][0], user, x))
 				cursor.execute(sql_queries['i_link'].format(tables[key][0], user, x))
+	with open('%s%s' % (settings.USER_DATA_DIR, settings.USER_DATA_POPULATED), 'a') as f:
+		f.write(user + '.p\n')
 
 def populate_all(cursor):
 	user_list = os.listdir(settings.USER_DATA_DIR)
+	comp_user = []
+	with open('%s%s' % (settings.USER_DATA_DIR, settings.USER_DATA_POPULATED), 'r') as f:
+		temp_list = f.readlines()
+		for user in temp_list:
+			comp_user.append(user.strip())
+	not_users = ['inserted_users.txt', 'inserted_users.txt~']
 	for user in user_list:
-		populate_user(cursor, user)
+		if user in not_users:
+			pass
+		if user in comp_user:
+			pass
+		else:
+			try:
+				populate_user(cursor, user)
+			except IndexError, EOF:
+				print(user)
 	
 
 if len(settings.MYSQL_PORT) > 0:
