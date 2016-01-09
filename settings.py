@@ -33,7 +33,7 @@ USER_LIST_DIR = 'user_list/'
 USER_LIST_LOG = 'log.txt'
 
 #Clear memory
-CLEAR_MEMORY = 5 #Suggested 35 per 8 gigs of ram (eg. 35 at 8gigs, 70 at 16gigs)
+CLEAR_MEMORY = 15 #Suggested 35 per 8 gigs of ram (eg. 35 at 8gigs, 70 at 16gigs)
 
 #Fields to Scrape
 TO_SCRAPE = {
