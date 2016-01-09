@@ -15,6 +15,8 @@ IMG_LOAD = False
 #Search lists containing keywords to be searched
 #Applicable only if LIST_OR_NOT is True
 SEARCH_LIST_DIR = 'search_lists/to_scrape/'
+SEARCH_INCOMPLETE = 'incomplete.txt' 
+#To scrape incompleted keywords, add SEARCH_INCOMPLETE to SEARCH_FILES tuple
 SEARCH_FILES = (
 	'common_names.csv',
 )
