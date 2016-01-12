@@ -30,56 +30,58 @@ module: settings
 
 module gen_query
 
-set_query(user=None, firstname=True, lastname=True,
-          phone=True, email=True, websites=True, 
-          company=True, jobs=True, linkedin=True,
-          twitter=True, fb=True, gplus=True,
-          pinterest=True, youtube=True, instagram=True,
-          wordpress=None, tumblr=None, blogger=None,
-          quora=None, vimeo=None, vine=None,
-          flickr=None, fitbit=None, px500=None,
-          dribbble=None, medium=None, behance=None,
-          github=None, etsy=None, foursquare=None,
-          kickstarter=None, soundcloud=None, yelp=None,
-          vk=None, strava=None, spotify=None,
-          wikipedia=None, goodreads=None, location=True,
-          weibo=None, interests=True, get_all=False, default=True)
-    Sets the query parameters. Set True to make it search for all of 
-    the specific column. Insert a list or tuple of filters, and it will
-    be both True and will search for filters. Filters will default 'OR'
-    in the SQL query. Set get_all to True if all results desired. get_all
-    will work on postgres but not mysql.
+set_query(	user=None, firstname=True, lastname=True,
+          	phone=True, email=True, websites=True, 
+          	company=True, jobs=True, linkedin=True,
+          	twitter=True, fb=True, gplus=True,
+          	pinterest=True, youtube=True, instagram=True,
+          	wordpress=None, tumblr=None, blogger=None,
+          	quora=None, vimeo=None, vine=None,
+          	flickr=None, fitbit=None, px500=None,
+          	dribbble=None, medium=None, behance=None,
+          	github=None, etsy=None, foursquare=None,
+          	kickstarter=None, soundcloud=None, yelp=None,
+          	vk=None, strava=None, spotify=None,
+          	wikipedia=None, goodreads=None, location=True,
+          	weibo=None, interests=True, get_all=False, default=True)
+          	
+    	Sets the query parameters. Set True to make it search for all of 
+    	the specific column. Insert a list or tuple of filters, and it will
+    	be both True and will search for filters. Filters will default 'OR'
+    	in the SQL query. Set get_all to True if all results desired. get_all
+    	will work on postgres but not mysql.
     
-    set_req(user=None, firstname=None, lastname=None,
-          phone=None, email=None, websites=None, 
-          company=None, jobs=None, linkedin=None,
-          twitter=None, fb=None, gplus=None,
-          pinterest=None, youtube=None, instagram=None,
-          wordpress=None, tumblr=None, blogger=None,
-          quora=None, vimeo=None, vine=None,
-          flickr=None, fitbit=None, px500=None,
-          dribbble=None, medium=None, behance=None,
-          github=None, etsy=None, foursquare=None,
-          kickstarter=None, soundcloud=None, yelp=None,
-          vk=None, strava=None, spotify=None,
-          wikipedia=None, goodreads=None, location=True,
-          weibo=None, interests=True, get_all=False)
-    Make certain columns required to be found in query. Set True
-    to specific columns to change from LEFT JOIN to INNER JOIN in
-    query.
+    set_req(	user=None, firstname=None, lastname=None,
+          	phone=None, email=None, websites=None, 
+          	company=None, jobs=None, linkedin=None,
+          	twitter=None, fb=None, gplus=None,
+          	pinterest=None, youtube=None, instagram=None,
+          	wordpress=None, tumblr=None, blogger=None,
+	          quora=None, vimeo=None, vine=None,
+        	  flickr=None, fitbit=None, px500=None,
+          	dribbble=None, medium=None, behance=None,
+          	github=None, etsy=None, foursquare=None,
+          	kickstarter=None, soundcloud=None, yelp=None,
+          	vk=None, strava=None, spotify=None,
+          	wikipedia=None, goodreads=None, location=True,
+          	weibo=None, interests=True, get_all=False)
+          	
+    	Make certain columns required to be found in query. Set True
+    	to specific columns to change from LEFT JOIN to INNER JOIN in
+    	query.
     
     gen_query()
-    Update query string after applying settings. You must call
-    this after making settings or the query string will not be updated.
+    	Update query string after applying settings. You must call
+    	this after making settings or the query string will not be updated.
     
     clear_all()
-    Resets everything to default values.
-    Default columns is listed under:
-    self.columns = ['user', 'firstname', 'lastname', 'email', 'phone', 'jobs', 'company',
-						'websites', 'linkedin', 'twitter', 'fb', 'gplus', 'pinterest', 'youtube',
-						'instagram', 'location', 'interests']
+	Resets everything to default values.
+    	Default columns is listed under:
+    	self.columns = ['user', 'firstname', 'lastname', 'email', 'phone', 'jobs', 'company',
+			'websites', 'linkedin', 'twitter', 'fb', 'gplus', 'pinterest', 'youtube',
+			'instagram', 'location', 'interests']
 						
-	output_query(csv_or_json, output_file_name)
-	Generates csv or json file, with output_file_name as the name.
-	No need to put '.csv' or '.json' in output_file_name.
+    output_query(csv_or_json, output_file_name)
+    	Generates csv or json file, with output_file_name as the name.
+    	No need to put '.csv' or '.json' in output_file_name.
     
