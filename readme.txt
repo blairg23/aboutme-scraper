@@ -30,7 +30,7 @@ module: settings
 
 module gen_query
 
-set_query(	user=None, firstname=True, lastname=True,
+    makequery.set_query(user=None, firstname=True, lastname=True,
           	phone=True, email=True, websites=True, 
           	company=True, jobs=True, linkedin=True,
           	twitter=True, fb=True, gplus=True,
@@ -51,7 +51,7 @@ set_query(	user=None, firstname=True, lastname=True,
     	in the SQL query. Set get_all to True if all results desired. get_all
     	will work on postgres but not mysql.
     
-    set_req(	user=None, firstname=None, lastname=None,
+    makequery.set_req(	user=None, firstname=None, lastname=None,
           	phone=None, email=None, websites=None, 
           	company=None, jobs=None, linkedin=None,
           	twitter=None, fb=None, gplus=None,
@@ -70,11 +70,11 @@ set_query(	user=None, firstname=True, lastname=True,
     	to specific columns to change from LEFT JOIN to INNER JOIN in
     	query.
     
-    gen_query()
+    makequery.gen_query()
     	Update query string after applying settings. You must call
     	this after making settings or the query string will not be updated.
     
-    clear_all()
+    makequery.clear_all()
 	Resets everything to default values.
     	Default columns is listed under:
     	self.columns = ['user', 'firstname', 'lastname', 'email', 'phone', 'jobs', 'company',
@@ -84,4 +84,7 @@ set_query(	user=None, firstname=True, lastname=True,
     output_query(csv_or_json, output_file_name)
     	Generates csv or json file, with output_file_name as the name.
     	No need to put '.csv' or '.json' in output_file_name.
+    	WARNING: This method is not part of the GeneralQuery class, so
+    	there is no need to call it using makequery. Just a simple
+    	output_query(params) is required.
     
