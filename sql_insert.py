@@ -120,6 +120,7 @@ def populate_all(cursor):
 		for user in temp_list:
 			comp_user.append(user.strip())
 	not_users = ['inserted_users.txt', 'inserted_users.txt~', 'inserted_users']
+	print("Making insertions...")
 	for user in user_list:
 		if user in not_users:
 			pass
@@ -130,7 +131,8 @@ def populate_all(cursor):
 				populate_user(cursor, user)
 			except IndexError, EOF:
 				print(user)
-	print(len(comp_user))
+	print("Inserted: %d" % count)
+	print("Total inserted: %d" len(comp_user))
 	
 
 if len(settings.MYSQL_PORT) > 0:
