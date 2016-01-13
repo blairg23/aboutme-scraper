@@ -5,7 +5,10 @@ import settings
 import pickle
 import os
 import sys
-import pandas
+try:
+	import pandas
+except:
+	pass
 import dryscrape
 
 class ScrapeSession:
@@ -64,9 +67,9 @@ class ScrapeSession:
 				for name in temp_userids:
 					userids.append(name.strip())
 		print("Scraping %d users." % len(userids))
-		completed = []
 		count = 0
 		current_count = 0
+		userids = list(set(userids) - set(completed_list))
 		for user in userids:
 			self.current_name = user
 			if current_count > settings.CLEAR_MEMORY:
@@ -85,7 +88,6 @@ class ScrapeSession:
 					pass
 				else:
 					pickle.dump(userdata.user_data, open("%s%s.p" % (settings.USER_DATA_DIR, user), "wb"))
-					completed.append(user)
 					with open('%s%s' % (settings.COMPLETED_PATH, settings.COMPLETED_USER_LIST), 'a') as f:
 						f.write(user + '\n')
 					current_count += 1
@@ -158,4 +160,5 @@ try:
 except:
 	data_load.kill_webkit_server()
 	os.execv(sys.executable, [sys.executable] + [os.path.abspath(__file__)])
+
 
