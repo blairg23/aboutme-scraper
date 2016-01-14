@@ -85,7 +85,8 @@ class ScrapeSession:
 			else:
 				userdata = data_load.ScrapeUserData(user)
 				if userdata.old == None:
-					pass
+					with open('%s%s' % (settings.COMPLETED_PATH, settings.COMPLETED_USER_LIST), 'a') as f:
+						f.write(user + '\n')
 				else:
 					pickle.dump(userdata.user_data, open("%s%s.p" % (settings.USER_DATA_DIR, user), "wb"))
 					with open('%s%s' % (settings.COMPLETED_PATH, settings.COMPLETED_USER_LIST), 'a') as f:
