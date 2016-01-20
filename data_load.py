@@ -82,6 +82,8 @@ class GetUsers:
 				pass
 			try:
 				page_loaded = self.check_reach_end()
+				if (scroll_times * 65) > 50000:
+					page_loaded = True
 				if page_loaded:
 					page_load_status = True
 					raw_html = self.sess.body().encode('utf8')
