@@ -15,49 +15,49 @@ sql_queries = {
 }
 
 tables = {
-	'user': ['user', 80],
+	'user': ['user', 120],
 	'bio_html': ['bio_html'],
 	'bio_text': ['bio_text'],
-	'firstname': ['firstname', 80],
-	'lastname': ['lastname', 80],
-	'email': ['email', 80],
-	'phone': ['phone', 80],
-	'jobs': ['jobs', 80],
-	'company': ['company', 80],
-	'location': ['location', 80],
-	'interests': ['interests', 80],
-	'websites': ['websites', 80],
-	'linkedin': ['linkedin', 80],
-	'twitter': ['twitter', 80],
-	'fb': ['fb', 80],
-	'gplus': ['gplus', 80],
-	'pinterest': ['pinterest', 80],
-	'youtube': ['youtube', 80],
-	'instagram': ['instagram', 80],
-	'wordpress': ['wordpress', 80],
-	'tumblr': ['tumblr', 80],
-	'blogger': ['blogger', 80],
-	'quora': ['quora', 80],
-	'vimeo': ['vimeo', 80],
-	'vine': ['vine', 80],
-	'flickr': ['flickr', 80],
-	'fitbit': ['fitbit', 80],
-	'500px': ['500px', 80],
-	'dribbble': ['dribbble', 80],
-	'behance': ['behance', 80],
-	'github': ['github', 80],
-	'etsy': ['etsy', 80],
-	'foursquare': ['foursquare', 80],
-	'kickstarter': ['kickstarter', 80],
-	'soundcloud': ['soundcloud', 80],
-	'yelp': ['yelp', 80],
-	'vk': ['vk', 80],
-	'weibo': ['weibo', 80],
-	'medium': ['medium', 80],
-	'strava': ['strava', 80],
-	'spotify': ['spotify', 80],
-	'wikipedia': ['wikipedia', 80],
-	'goodreads': ['goodreads', 80],
+	'firstname': ['firstname', 120],
+	'lastname': ['lastname', 120],
+	'email': ['email', 120],
+	'phone': ['phone', 120],
+	'jobs': ['jobs', 120],
+	'company': ['company', 120],
+	'location': ['location', 120],
+	'interests': ['interests', 120],
+	'websites': ['websites', 120],
+	'linkedin': ['linkedin', 120],
+	'twitter': ['twitter', 120],
+	'fb': ['fb', 120],
+	'gplus': ['gplus', 120],
+	'pinterest': ['pinterest', 120],
+	'youtube': ['youtube', 120],
+	'instagram': ['instagram', 120],
+	'wordpress': ['wordpress', 120],
+	'tumblr': ['tumblr', 120],
+	'blogger': ['blogger', 120],
+	'quora': ['quora', 120],
+	'vimeo': ['vimeo', 120],
+	'vine': ['vine', 120],
+	'flickr': ['flickr', 120],
+	'fitbit': ['fitbit', 120],
+	'500px': ['500px', 120],
+	'dribbble': ['dribbble', 120],
+	'behance': ['behance', 120],
+	'github': ['github', 120],
+	'etsy': ['etsy', 120],
+	'foursquare': ['foursquare', 120],
+	'kickstarter': ['kickstarter', 120],
+	'soundcloud': ['soundcloud', 120],
+	'yelp': ['yelp', 120],
+	'vk': ['vk', 120],
+	'weibo': ['weibo', 120],
+	'medium': ['medium', 120],
+	'strava': ['strava', 120],
+	'spotify': ['spotify', 120],
+	'wikipedia': ['wikipedia', 120],
+	'goodreads': ['goodreads', 120],
 }
 
 def create_tables(cursor):
@@ -105,10 +105,14 @@ def populate_user(cursor, user):
 				#print(sql_queries['i_base'].format(tables[key][0], x))
 				try:
 					cursor.execute(sql_queries['i_base'].format(tables[key][0], x))
-					#print(sql_queries['i_link'].format(tables[key][0], user, x))
+				except:
+					pass
+			for x in f[key]:
+				x = x.replace("'", "\\'")
+				try:
 					cursor.execute(sql_queries['i_link'].format(tables[key][0], user, x))
 				except:
-					pass	
+					pass
 	with open('%s%s' % (settings.USER_DATA_DIR, settings.USER_DATA_POPULATED), 'a') as f:
 		f.write(temp_user + '\n')
 
@@ -121,6 +125,7 @@ def populate_all(cursor):
 			comp_user.append(user.strip())
 	not_users = ['inserted_users.txt', 'inserted_users.txt~', 'inserted_users']
 	print("Making insertions...")
+	count = 0
 	for user in user_list:
 		if user in not_users:
 			pass
@@ -128,11 +133,15 @@ def populate_all(cursor):
 			pass
 		else:
 			try:
+				print("Inserting user: %s" % user)
 				populate_user(cursor, user)
+				count += 1
+				comp_user.append(user.strip())
 			except IndexError, EOF:
 				print(user)
 	print("Inserted: %d" % count)
-	print("Total inserted: %d" len(comp_user))
+	print("Total insertions: %d" % len(comp_user))
+	
 	
 
 if len(settings.MYSQL_PORT) > 0:
