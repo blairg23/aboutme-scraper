@@ -1,6 +1,9 @@
 # aboutme-scraper
 Python web scraper for about.me profiles. Adds collected profiles to MySQL database.
-module: data_load
+
+# Documentation:
+
+# module: data_load
 kill_webkit_server()
     Kills all Xfvb and webkit servers that are no longer being used.
 
@@ -15,22 +18,22 @@ ScrapeUserData(user)
     Scrapes data from user username from about.me site. Returns a dict object
     with scraped data.
     
-module: aboutmeScraper
+# module: aboutmeScraper
 
 ScrapeSession()
     Creates scrape session, taking users from the lists provided in the SCRAPE_LIST
     tuple. Uses ScrapeUserData in data_load module to get data, stores data in pickle file
     in the user_data folder. Clears memory after every CLEAR_MEMORY scrapes.
     
-module: sql_insert
+# module: sql_insert
     Creates all tables where necessary. If tables already created, starts populating data
     that can be found in the user_data directory.
     
-module: settings
+# module: settings
     Set speed, clear memory, search lists, and storage spaces, including the MySQL db settings.
     See settings.py for more information.
 
-module gen_query
+# module gen_query
 
     makequery.set_query(user=None, firstname=True, lastname=True,
           	phone=True, email=True, websites=True, 
