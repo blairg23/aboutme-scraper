@@ -24,12 +24,27 @@ class ScrapeSession:
 		if '-mn' in sys.argv:
 			self.current_term = sys.argv[3]
 		self.search_list = []
+
+	def reset_or_not(self):
+		with open(settings.RESET_TEXT, 'r') as f:
+			reset_count = f.readlines()
+			reset_count = int(reset_count[0].strip())
+		if reset_count == settings.RESET_COUNT:
+			with open(settings.RESET_TEXT, 'w') as f:
+				f.write('0')
+			return True
+		else:
+			reset_count += 1
+			with open(settings.RESET_TEXT, 'w') as f:
+				f.write(str(reset_count))
+			return False
+
 		
 		
 	def general_scrape(self, search_key):
 		"""Search for something, retrieve all the users found,
-		   scrape user information and add completed to complete list."""
-		
+		   scrape user information and add completed to complete list."""	
+			
 		os.system('clear')
 		print('Preparing to scrape search key %s...' % search_key)
 		with open('%s%s' % (settings.COMPLETED_PATH, settings.COMPLETED_USER_LIST), 'r') as f:
@@ -37,6 +52,7 @@ class ScrapeSession:
 			completed_list = []
 			for name in temp_com_list:
 				completed_list.append(name.strip())
+
 		if self.clear_memory == False:
 			with open('%s%s' % (settings.USER_LIST_DIR, settings.USER_LIST_LOG), 'r') as f:
 				user_log = f.readlines()
@@ -45,7 +61,7 @@ class ScrapeSession:
 					temp_log_list.append(user.strip())
 			if search_key in temp_log_list:
 				for file_name in os.listdir(settings.USER_LIST_DIR):
-					if search_key in file_name:
+					if search_key == file_name[:-10]:
 						name_file = file_name
 				with open('%s%s' % (settings.USER_LIST_DIR, name_file), 'r') as f:
 					temp_userids = f.readlines()
@@ -68,17 +84,20 @@ class ScrapeSession:
 					userids.append(name.strip())
 		print("Scraping %d users." % len(userids))
 		count = 0
-		current_count = 0
+		current_count = 0	
 		userids = list(set(userids) - set(completed_list))
+		remaining_count = len(userids)
 		for user in userids:
 			self.current_name = user
 			if current_count > settings.CLEAR_MEMORY:
 				print('Clearing memory')
+				import sql_insert.py
 				data_load.kill_webkit_server()
 				os.execv(sys.executable, [sys.executable] + 
 					[os.path.abspath(__file__),'-cm', name_file, search_key])
 			os.system('clear')
-			print("Currently scraping: %s (%d / %d)" % (user, count, len(userids)))
+			print("Currently scraping: %s (%d / %d)" % (user, count, settings.CLEAR_MEMORY))
+			print("%d remaining for keyword '%s'" % (remaining_count, search_key))
 			if user in completed_list:
 				print('User: %s was previously scraped already. Moving to next user.' % user)
 				pass
@@ -94,6 +113,7 @@ class ScrapeSession:
 					current_count += 1
 			os.system('clear')
 			count += 1
+			remaining_count -= 1
 		with open('%s%s' % (settings.COMPLETED_PATH, settings.COMPLETED_SEARCH_TERMS), 'a') as f:
 			f.write(search_key + '\n')
 		try:
@@ -161,5 +181,6 @@ try:
 except:
 	data_load.kill_webkit_server()
 	os.execv(sys.executable, [sys.executable] + [os.path.abspath(__file__)])
+
 
 
